@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width"/>
+
+    <title>{% block titles %}{% endblock %}</title>
+    <meta name="description" content="{{ SITE_SEO_DESCRIPTION }}"/>
+    <meta name="keywords" content="{{ SITE_KEYWORDS }}"/>
+    <meta property="og:type" content="blog"/>
+    <meta property="og:title" content="{{ SITE_NAME }}"/>
+    <meta property="og:description" content="{{ SITE_DESCRIPTION }}"/>
+    <meta property="og:url" content="{{ SITE_BASE_URL }}"/>
+    <meta property="og:site_name" content="{{ SITE_NAME }}"/>
+    <!--[if lt IE 9]>
+    <script src="{% static 'js/html5.js'  %}" type="text/javascript"></script>
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+    <link rel='stylesheet' id='twentytwelve-ie-css'  href='{% static 'css/ie.css' %}' type='text/css' media='all' />
+    <![endif]-->
+
+    <link rel='stylesheet' id='twentytwelve-style-css' href='{% static 'css/blog/style.css' %}' type='text/css' media='all'/>
+    <link href="{% static 'css/blog/oauth_style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/blog/default.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/nprogress.css' %}">
+</head>
+
+<body class="home blog custom-font-enabled">
+
+<div id="page" class="hfeed site">
+
+    <header id="masthead" class="site-header" role="banner">
+        <hgroup>
+            <h1 class="site-title"><a href="{{ SITE_BASE_URL }}" title="{{ SITE_NAME }}" rel="home">{{ SITE_NAME }}</a>
+            </h1>
+            <h2 class="site-description">{{ SITE_DESCRIPTION }}</h2>
+        </hgroup>
+
+        {% include 'share_layout/nav.html' %}
+
+    </header>
+
+    <div id="main" class="wrapper">
+
+        {% block content %}
+        {% endblock %}
+
+        {% block sidebar %}
+        {% endblock %}
+
+    </div>
+
+    {% include 'share_layout/footer.html' %}
+
+</div>
+
+</body>
+<footer>
+{#    <script type="text/javascript" src="{% static 'blog/js/jquery-3.1.1.js' %}"></script>#}
+{#    <script type="text/javascript" src="{% static 'blog/js/nprogress.js' %}"></script>#}
+{#    <script src="{% static 'blog/js/blog.js' %}" type="application/javascript"></script>#}
+{#    <script src="{% static 'blog/js/navigation.js' %}" type="application/javascript"></script>#}
+</footer>
+</html>

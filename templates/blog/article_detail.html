@@ -1,0 +1,325 @@
+{% load static %}
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width"/>
+    <title>shenruxiang</title>
+    <meta name="description" content="小站主要用来分享和记录学习经验,教程,记录个人生活的点滴以及一些随笔."/>
+    <meta name="keywords" content="linux,apache,mysql,服务器,ubuntu,shell,web,csharp,.net,asp,mac,swift,python,django"/>
+    <meta property="og:type" content="blog"/>
+    <meta property="og:title" content="且听风吟"/>
+    <meta property="og:description" content="大巧无工,重剑无锋."/>
+    <meta property="og:site_name" content="且听风吟"/>
+
+    <link rel="stylesheet" href="{% static "css/blog/oauth_style.css" %}" type="text/css" media="all" />
+    <link rel="stylesheet" href="{% static "css/blog/default.css" %}" type="text/css" media="all" />
+    <link rel="stylesheet" href="{% static "css/blog/style.css" %}" type="text/css" media="all" />
+</head>
+
+<body class="home blog custom-font-enabled">
+    <div id="page" class="hfeed site">
+        <header id="masthead" class="site-header" role="banner">
+        <hgroup>
+            <h1 class="site-title"><a href="http://www.lylinux.net/" title="且听风吟" rel="home">且听风吟</a>
+            </h1>
+            <h2 class="site-description">大巧无工,重剑无锋.</h2>
+        </hgroup>
+            <nav id="site-navigation" class="main-navigation" role="navigation">
+                <div class="menu-container">
+                    <ul id="menu" class="nav-menu">
+                        <li id="menu-item-3498" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-3498">
+                            <a href="http://www.lylinux.net/">首页</a>
+                        </li>
+                        <li id="menu-item-2" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-2">
+                            <a href="/category/yuan-lai-ru-ci.html">猿来如此</a>
+                            <ul class="sub-menu">
+                                <li id="menu-item-5" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-5">
+                                    <a href="/category/csharp.html">CSharp</a>
+                                </li>
+
+                                <li id="menu-item-1" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-1">
+                                    <a href="/category/python.html">Python</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav><!-- #site-navigation -->
+        </header><!-- #masthead -->
+        <div id="main" class="wrapper">
+            <div id="primary" class="site-content">
+                <div id="content" role="main">
+                    <article id="post-38 " class="post-38 post type-post status-publish format-standard hentry">
+                        <header class="entry-header">
+                            <h1 class="entry-title">使用树莓派和OpenCV 实现家庭监控和移动目标探测</h1>
+                            <div class="comments-link">
+                                <a href="/article/2018/1/24/38.html#comments" class="ds-thread-count" data-thread-key="3815" rel="nofollow">
+                                    <span class="leave-reply">发表评论</span>
+                                </a>
+                                <div style="float:right">653 views</div>
+                            </div><!-- .comments-link -->
+                            <br/>
+                            <div class="breadcrumb">
+                                <div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                                    <a href="www.lylinux.net" itemprop="url">
+                                        <span itemprop="title"> 且听风吟</span>
+                                    </a>&nbsp;&rsaquo;
+                                </div>
+                                <div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                                    <a href="/category/yuan-lai-ru-ci.html" itemprop="url">
+                                        <span itemprop="title"> 猿来如此</span>
+                                    </a>&nbsp;&rsaquo;
+                                </div>
+                                <div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                                    <a href="/category/python.html" itemprop="url">
+                                        <span itemprop="title"> Python</span>
+                                    </a>&nbsp;&rsaquo;
+                                </div>使用树莓派和OpenCV 实现家庭监控和移动目标探测</div>
+                        </header><!-- .entry-header -->
+                        <div class="entry-content" itemprop="articleBody">
+                            <p>本篇文章主要是分享使用<code>opencv</code>和树莓派实现的移动目标探测，所以需要有<code>opencv</code>环境，另外你的电脑必须有摄像头支持。 体参考自伯乐在线的
+                                <a href="http://python.jobbole.com/81645/" rel='nofollow'>这篇文章</a> 具体内容大家可以参考下原文，我在其基础上大概修改了下，下面是代码:</p>
+                            <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
+                                <span class="kn">import</span> <span class="nn">time</span></pre>
+                            </div>
+                            <p>获得的图像会保存在<code>imgs</code>目录中，所以需要先创建好该目录。</p>
+                        </div><!-- .entry-content -->
+                        <footer class="entry-meta">本条目发布于<a href="/article/2018/1/24/38.html" title="2018-01-24" itemprop="datePublished" content="2018-01-24" rel="bookmark">
+                            <time class="entry-date updated" datetime="2018年1月24日 22:41">2018-01-24</time></a>
+                            。属于<a href="/category/python.html" rel="category tag">Python</a>分类， 被贴了
+                            <a href="/tag/opencv.html" rel="tag">OpenCV</a>
+                            <a href="/tag/python.html" rel="tag">python</a>
+                            <a href="/tag/shu-mei-pai.html" rel="tag">树莓派</a>标签。
+                            <span class="by-author">作者是<span class="author vcard"><a class="url fn n" href="/author/admin.html" title="查看所有由admin发布的文章" rel="author"><span itemprop="author" itemscope itemtype="http://schema.org/Person">
+                                <span itemprop="name" itemprop="publisher">admin
+                                </span>
+                            </span>
+                            </a>
+                            </span>。
+                            </span>
+                        </footer><!-- .entry-meta -->
+                    </article><!-- #post -->
+                    <nav class="nav-single">
+                        <h3 class="assistive-text">文章导航</h3>
+                        <span class="nav-previous"><a href="/article/2018/2/3/39.html" rel="prev"><span class="meta-nav">&larr;</span> Asp.Net 中的异步死锁</a></span>
+                        <span class="nav-next"><a href="/article/2018/1/22/37.html" rel="next">mysql修改root密码或者host后无法登陆解决办法 <span class="meta-nav">&rarr;</span></a></span>
+                    </nav><!-- .nav-single -->
+                </div><!-- #content -->
+                <section id="comments" class="themeform">
+                    <ul class="comment-tabs group">
+                        <li class="active"><a href="#commentlist-container"><i class="fa fa-comments-o"></i>评论<span>3</span></a></li>
+                    </ul>
+
+                    <div id="commentlist-container" class="comment-tab" style="display: block;">
+                        <ol class="commentlist">
+                            <li class="comment even thread-even depth-2 parent" id="comment-107">
+                                <div id="div-comment-107" class="comment-body">
+                                    <div class="comment-author vcard">
+                                        <img alt="" src="https://avatars1.githubusercontent.com/u/31126029?v=4" srcset="https://avatars1.githubusercontent.com/u/31126029?v=4" class="avatar avatar-96 photo" height="96" width="96">
+                                        <cite class="fn">
+                                            <a rel="nofollow" href="#" rel="external nofollow" class="url">hank</a></cite>
+                                        <span class="says">说道：</span>
+                                    </div>
+                                    <div class="comment-meta commentmetadata">
+                                        2018年3月28日 22:51
+                                    </div>
+                                    <p>
+                                        <ul>
+                                            <li>测试一下<strong>markdown</strong></li>
+                                        </ul>
+                                    </p>
+                                    <div class="reply">
+                                        <a rel="nofollow" class="comment-reply-link" href="javascript:void(0)" onclick="do_reply(107)" aria-label="回复给hank">回复</a>
+                                    </div>
+                                </div>
+                            </li><!-- #comment-## -->
+                        </ol><!--/.commentlist-->
+                    </div>
+                </section>
+
+                <div class="comments-area">
+                    <h3 class="comment-meta">您还没有登录，请您
+                        <a href="/login/?next=/article/2018/1/24/38.html">登录</a>后发表评论。
+                    </h3>
+                    <div class="widget-login">
+                        <small>快捷登录:</small>
+                        <a href="/oauth/oauthlogin?type=weibo&amp;next_url=/article/2018/1/24/38.html" rel="nofollow">
+                            <span class="icon-sn-weibo"></span>
+                        </a>
+
+                        <a href="/oauth/oauthlogin?type=google&amp;next_url=/article/2018/1/24/38.html" rel="nofollow">
+                            <span class="icon-sn-google"></span>
+                        </a>
+
+                        <a href="/oauth/oauthlogin?type=github&amp;next_url=/article/2018/1/24/38.html" rel="nofollow">
+                            <span class="icon-sn-github"></span>
+                        </a>
+
+                        <a href="/oauth/oauthlogin?type=facebook&amp;next_url=/article/2018/1/24/38.html" rel="nofollow">
+                            <span class="icon-sn-facebook"></span>
+                        </a>
+                    </div>
+                </div>
+            </div><!-- #primary -->
+
+
+            <div id="secondary" class="widget-area" role="complementary">
+                <aside id="search-2" class="widget widget_search">
+                    <form role="search" method="get" id="searchform" class="searchform" action="/search">
+                        <div>
+                            <label class="screen-reader-text" for="s">搜索：</label>
+                            <input type="text" value="" name="q" id="q"/>
+                            <input type="submit" id="searchsubmit" value="搜索"/>
+                        </div>
+                    </form>
+                </aside>
+
+
+
+                <aside class="widget_text widget widget_custom_html">
+                    <h3 class="widget-title">公告</h3>
+                    <div class="textwidget custom-html-widget">
+                        <p>由于最近迁移至阿里云主机，因此Facebook，Google登录不可用，望见谅。 大家如果想测试本站功能,请移步
+                            <a href="https://www.lylinux.net/article/2017/1/10/1.html" >测试</a> 来测试.谢谢.
+                        </p>
+                    </div>
+                </aside>
+
+                <aside id="views-4" class="widget widget_views"><h3 class="widget-title">Views</h3>
+                    <ul>
+                        <li>
+                            <a href="/article/2017/1/15/7.html" title="关于">
+                                关于
+                            </a> - 4056 views
+                        </li>
+                    </ul>
+                </aside>
+
+
+                <aside id="su_siloed_terms-2" class="widget widget_su_siloed_terms"><h3 class="widget-title">分类目录</h3>
+                    <ul>
+                        <li class="cat-item cat-item-184"><a href=/category/csharp.html>CSharp</a></li>
+                    </ul>
+                </aside>
+
+                <aside id="ds-recent-comments-4" class="widget ds-widget-recent-comments"><h3 class="widget-title">近期评论</h3>
+                    <ul id="recentcomments">
+                        <li class="recentcomments">
+                            <span class="comment-author-link">小伙啊</span>发表在《
+                                <a href="/article/2018/4/30/43.html#comment-157">tmux 简介</a>》
+                        </li>
+                    </ul>
+                </aside>
+
+
+                <aside id="recent-posts-2" class="widget widget_recent_entries"><h3 class="widget-title">近期文章</h3>
+                    <ul>
+                        <li>
+                            <a href="/article/2018/5/26/48.html" title="python学习笔记系列">python学习笔记系列</a>
+                        </li>
+                    </ul>
+                </aside>
+
+                <aside id="linkcat-0" class="widget widget_links"><h3 class="widget-title">书签</h3>
+                    <ul class='xoxo blogroll'>
+                        <li>
+                            <a href="https://www.lylinux.org/" target="_blank" title="逝去日子的博客">逝去日子的博客</a>
+                        </li>
+                    </ul>
+                </aside>
+
+                <aside id="text-2" class="widget widget_text"><h3 class="widget-title">Google AdSense</h3>
+                    <div class="textwidget">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                        <!-- auto_size -->
+                        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3945824757398503" data-ad-slot="2462790325" data-ad-format="auto"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                        </div>
+                </aside>
+
+
+        <aside id="tag_cloud-2" class="widget widget_tag_cloud"><h3 class="widget-title">标签云</h3>
+            <div class="tagcloud">
+                <a href="/tag/ajax.html" class="tag-link-24 tag-link-position-24" style="font-size: 11.41304347826087pt;" title="1个话题"> Ajax</a>
+            </div>
+        </aside>
+
+        <aside id="text-2" class="widget widget_text"><h3 class="widget-title">欢迎您star或者fork本站源代码</h3>
+            <div class="textwidget">
+                <p>
+                    <a href="https://github.com/liangliangyy/DjangoBlog" rel="nofollow">
+                        <img
+                        src="https://resource.lylinux.net/img.shields.io/github/stars/liangliangyy/djangoblog.svg?style=social&amp;label=Star"
+                        alt="GitHub stars">
+                    </a>
+                    <a href="https://github.com/liangliangyy/DjangoBlog" rel="nofollow"><img
+                        src="https://resource.lylinux.net/img.shields.io/github/forks/liangliangyy/djangoblog.svg?style=social&amp;label=Fork"
+                        alt="GitHub forks">
+                    </a>
+                </p>
+            </div>
+        </aside>
+
+        <aside id="meta-2" class="widget widget_meta"><h3 class="widget-title">功能</h3>
+            <ul>
+                <li>
+                    <a href="/admin/" rel="nofollow">管理站点</a>
+                </li>
+                <li>
+                    <a href="/login/" rel="nofollow">登录</a>
+                </li>
+                <li>
+                    <a href="http://gitbook.lylinux.net" target="_blank" rel="nofollow">GitBook</a>
+                </li>
+            </ul>
+        </aside>
+                <div id="rocket" class="show" title="点我返回顶部"></div>
+            </div><!-- #secondary -->
+        </div><!-- #main .wrapper -->
+    <footer id="colophon" role="contentinfo">
+    <div class="site-info" style="text-align: center">
+        Copyright&copy;&nbsp;2017&nbsp;
+        <a href="http://www.lylinux.net/" target="blank">且听风吟</a>
+        &nbsp;|&nbsp;
+
+        <a href="http://www.lylinux.net/sitemap.xml" title="SiteMap" target="_blank">
+            SiteMap
+        </a>
+        &nbsp;|&nbsp;
+        <a href="http://www.lylinux.net/feed" title="RSS Feed" target="_blank">
+            RSS Feed
+        </a>
+        |&nbsp; Hosting On&nbsp;
+        <a href="https://www.linode.com/?r=b0d38794d05ef8816b357a929106e89b7c6452f9" target="blank" rel="nofollow">Linode</a>
+        |&nbsp;
+        <a href="https://tongji.baidu.com/sc-web/3478620/home/ico?siteId=11261596" target="_blank"
+           rel="nofollow">百度统计</a>
+
+
+    </div>
+    <div class="site-info" style="text-align: center">
+        Powered by
+        <a href="https://www.djangoproject.com/" rel="nofollow" target="blank">Django</a>
+        &nbsp;|&nbsp;
+        <a href="https://github.com/liangliangyy/DjangoBlog" rel="nofollow" target="blank">LiangLiangyy</a>
+        |
+        <a href="https://www.lylinux.net" target="blank">Lylinux</a>
+        |
+        本页面加载耗时:0.310s
+    </div>
+
+        <div class="site-info" style="text-align: center">
+            <a href="http://www.miitbeian.gov.cn/" rel="nofollow" target="_blank">
+                <p style=" height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">
+                    陕ICP备18005585号
+                </p>
+            </a>
+
+        </div>
+    </footer><!-- #colophon -->
+
+    </div><!-- #page -->
+</body>
+</html>

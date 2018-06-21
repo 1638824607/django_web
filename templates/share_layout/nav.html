@@ -1,0 +1,29 @@
+<nav id="site-navigation" class="main-navigation" role="navigation">
+    <div class="menu-container">
+        <ul id="menu" class="nav-menu">
+            <li id="menu-item-3498" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-3498">
+                <a href="{{ SITE_BASE_URL }}">首页</a>
+            </li>
+
+            {% load blog_tags %}
+            {% get_category_list as category_list %}
+            {% if category_list %}
+                {% for category in category_list %}
+                    <li id="menu-item-{{ category.pk }}" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-{{ category.pk }}">
+                        <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+                        {% get_category_list category.pk as child_category_list %}
+                            {% if child_category_list %}
+                                <ul class="sub-menu">
+                                {% for child in child_category_list %}
+                                    <li id="menu-item-{{ child.pk }}" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-{{ child.pk }}">
+                                        <a href="{{ child.get_absolute_url }}">{{ child.name }}</a>
+                                    </li>
+                                {% endfor %}
+                                 </ul>
+                            {% endif %}
+                    </li>
+                {% endfor %}
+            {% endif %}
+        </ul>
+    </div>
+</nav><!-- #site-navigation -->
