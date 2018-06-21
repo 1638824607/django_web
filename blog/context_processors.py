@@ -31,7 +31,7 @@ def seo_processor(requests):
 
         from blog.models import BlogSettings
 
-        site_base_url = 'http://http://127.0.0.1/'
+        site_base_url = 'http://127.0.0.1:8000/'
 
         if not BlogSettings.objects.count():
             sitename = 'shenblog'

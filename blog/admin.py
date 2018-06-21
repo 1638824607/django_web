@@ -20,7 +20,7 @@ class ArticleAdmin(admin.ModelAdmin):
         'article_order',
         'category',
         'pub_time',
-        'article_tags'     # 自定义展示字段函数
+        'article_tags'     # 自定义展示字段函数1
     )
 
     # 增加选中集合工具
@@ -36,14 +36,14 @@ class ArticleAdmin(admin.ModelAdmin):
             # save
             obj.last_mod_time = now()
         else:
-            # add
+            # add11
             obj.created_time = now()
 
         if obj.status == 'p':
             obj.pub_time = now()
 
         import re
-        obj.body = re.sub('<[^>]+>', '', obj.body)
+        # obj.body = re.sub('<[^>]+>', '', obj.body)
 
         from django.core.cache import cache
         cache.clear()
