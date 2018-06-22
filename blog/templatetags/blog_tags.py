@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 from django import template
-from ..models import Article, Tag, Category
+from ..models import Article, Tag, Category, SideBar, Links, Comment
 import requests
 import mistune
 from django.template.defaultfilters import stringfilter
 from django.utils.safestring import mark_safe
+import request
 
 from pygments import highlight
 from pygments.lexers import get_lexer_by_name
@@ -28,7 +29,7 @@ def get_category_list(category_id=None):
 def load_article_detail(article, isindex, user):
 
     from blog.context_processors import seo_processor
-    blogsetting = seo_processor(requests)
+    blogsetting = seo_processor(request)
 
     return {
         'article': article,
@@ -61,6 +62,17 @@ def markdown_detail(value):
     return mark_safe(mdp(value))
 
 
+# 字符串截取
+@register.filter(is_safe=True)
+@stringfilter
+def truncatechars_content(content):
+    from django.template.defaultfilters import truncatechars_html
+    from blog.context_processors import seo_processor
+    blogsetting = seo_processor(request)
+    return truncatechars_html(content, blogsetting['ARTICLE_SUB_LENGTH'])
+
+
+
 class BlogMarkDownRenderer(mistune.Renderer):
     def block_code(self, text, lang=None):
         inlinestyles = self.options.get('inlinestyles')
@@ -87,3 +99,61 @@ def block_code(text, lang, inlinestyles=False, linenos=False):
         return '<pre class="%s"><code>%s</code></pre>\n' % (
             lang, mistune.escape(text)
         )
+
+
+# 获得文章meta底部信息
+@register.inclusion_tag('blog/tags/article_meta_info.html')
+def load_article_metas(article, user):
+    return {
+        'article': article,
+        'user': user
+    }
+
+
+# 格式化时间
+@register.simple_tag
+def datetimeformat(data):
+    try:
+        return data.strftime('%Y-%m-%d')
+    except:
+        return ""
+
+
+# 加载侧边栏
+@register.inclusion_tag('blog/tags/sidebar.html')
+def load_sidebar(user):
+    from blog.context_processors import seo_processor
+    blogsetting = seo_processor(request)
+    recent_articles = Article.objects.filter(status='p')[:blogsetting['SIDEBAE_ARTICLE_COUNT']]
+    sidebar_categorys = Category.objects.all()
+    extra_sidebars = SideBar.objects.filter(is_enable=True).order_by('sequence')
+    most_read_articles = Article.objects.filter(status='p').order_by('-views')[:blogsetting['SIDEBAE_ARTICLE_COUNT']]
+    dates = Article.objects.datetimes('created_time', 'month', order='DESC')
+    links = Links.objects.all()
+    commment_list = Comment.objects.filter(is_enable=True).order_by('-id')[:blogsetting['SIDEBAR_COMMENT_COUNT']]
+    # show_adsense = settings.SHOW_GOOGLE_ADSENSE
+    # 标签云 计算字体大小
+    # 根据总数计算出平均值 大小为 (数目/平均值)*步长
+    increment = 5
+    tags = Tag.objects.all()
+    sidebar_tags = None
+    if tags and len(tags) > 0:
+        s = list(map(lambda t: (t, t.get_article_count()), tags))
+        count = sum(map(lambda t: t[1], s))
+        dd = 1 if count == 0 else count / len(tags)
+        sidebar_tags = list(map(lambda x: (x[0], x[1], (x[1] / dd) * increment + 10), s))
+
+    return {
+        'recent_articles': recent_articles,
+        'sidebar_categorys': sidebar_categorys,
+        'most_read_articles': most_read_articles,
+        'article_dates': dates,
+        'sidabar_links': links,
+        'sidebar_comments': commment_list,
+        'user': user,
+        'show_google_adsense': False,
+        'google_adsense_codes': '',
+        'open_site_comment': True,
+        'sidebar_tags': sidebar_tags,
+        'extra_sidebars': extra_sidebars
+    }

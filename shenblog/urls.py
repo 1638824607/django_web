@@ -28,6 +28,7 @@ urlpatterns = [
 
     # DjangoUeditor
     path('ueditor/', include('DjangoUeditor.urls')),
+
 ]
 
 if settings.DEBUG:

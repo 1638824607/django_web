@@ -26,4 +26,7 @@ urlpatterns = [
 
     # 分类列表
     path('category/<category_id>', blog.ArticleDetailView.as_view(), name='detail'),
+
+    # 标签详情
+    path('tag_detail/<tag_id>', blog.TagListView.as_view(), name='tag_detail'),
 ]

@@ -36,7 +36,7 @@
 
     <div class="entry-content" itemprop="articleBody">
         {% if  isindex %}
-            {{ article.body|markdown_detail }}
+            {{ article.body|markdown_detail|truncatechars_content }}
             <p class='read-more'><a
                     href=' {{ article.get_absolute_url }}'>Read more</a></p>
         {% else %}
@@ -45,6 +45,6 @@
 
     </div><!-- .entry-content -->
 
-{#    {% load_article_metas article user %}#}
+    {% load_article_metas article user %}
 
 </article>

@@ -66,3 +66,15 @@ class ArticleDetailView(BlogListView):
     def get_queryset_cache_key(self):
         cache_key = 'index_{page}'.format(page=1)
         return cache_key
+
+
+# 标签列表
+class TagListView(ListView):
+    template_name = 'blog/article_detail.html'
+    context_object_name = 'tag_list'
+
+    def get_queryset(self):
+        tags_list = []
+        tags = Tag.objects.all()
+        for t in tags:
+            t.article_set.count()

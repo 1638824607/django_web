@@ -83,12 +83,15 @@ class Tag(BaseModel):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('blog:tag_detail', kwargs={'tag_name': self.slug})
+        return reverse('blog:tag_detail', args=(self.pk,))
 
     class Meta:
         ordering = ['name']
         verbose_name = "标签"
         verbose_name_plural = verbose_name
+
+    def get_article_count(self):
+        return Article.objects.filter(tags__name=self.name).distinct().count()
 
 
 # 友情链接

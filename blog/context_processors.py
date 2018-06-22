@@ -19,7 +19,7 @@ logger = logging.getLogger('shenblog')
 
 
 # 获取网站基本配置
-def seo_processor(requests):
+def seo_processor(request):
     key = 'seo_processor'
     value = cache.get(key)
     if value:
@@ -39,6 +39,8 @@ def seo_processor(requests):
             site_seo_description = '基于Django的博客系统'
             site_seo_keywords = 'Django,Python'
             article_sub_length = 300
+            sidebar_article_count = 10
+            sidebar_comment_count = 5
             open_site_comment = True
             beiancode = '123456789'
             gongan_beiancode = '123456789'
@@ -52,6 +54,8 @@ def seo_processor(requests):
             site_seo_keywords = setting.site_keywords
             article_sub_length = setting.article_sub_length
             open_site_comment = setting.open_site_comment
+            sidebar_article_count = setting.sidebar_article_count
+            sidebar_comment_count = setting.sidebar_comment_count
             beiancode = setting.beiancode
             gongan_beiancode = setting.gongan_beiancode
             analyticscode = setting.analyticscode
@@ -66,6 +70,8 @@ def seo_processor(requests):
             'SITE_KEYWORDS': site_seo_keywords,
             'SITE_BASE_URL': site_base_url,
             'ARTICLE_SUB_LENGTH': article_sub_length,
+            'SIDEBAE_ARTICLE_COUNT': sidebar_article_count,
+            'SIDEBAR_COMMENT_COUNT': sidebar_comment_count,
             'nav_category_list': nav_category_list,
             'nav_pages': nav_pages,
             'OPEN_SITE_COMMENT': open_site_comment,
