@@ -29,4 +29,9 @@ urlpatterns = [
 
     # 标签详情
     path('tag_detail/<tag_id>', blog.TagListView.as_view(), name='tag_detail'),
+
+    # 登陆
+    path('sign_in/', blog.SignInView.as_view(), name='sign_in'),
+
+    # 注册
 ]

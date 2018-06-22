@@ -78,3 +78,15 @@ class TagListView(ListView):
         tags = Tag.objects.all()
         for t in tags:
             t.article_set.count()
+
+
+# 登陆
+class SignInView(ListView):
+    template_name = 'blog/article_detail.html'
+    context_object_name = 'tag_list'
+
+    def get_queryset(self):
+        tags_list = []
+        tags = Tag.objects.all()
+        for t in tags:
+            t.article_set.count()
