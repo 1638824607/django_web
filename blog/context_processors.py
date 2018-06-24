@@ -42,8 +42,8 @@ def seo_processor(request):
             sidebar_article_count = 10
             sidebar_comment_count = 5
             open_site_comment = True
-            beiancode = '123456789'
-            gongan_beiancode = '123456789'
+            beiancode = '陕ICP备18005585号'
+            gongan_beiancode = '陕ICP备18005585号'
             analyticscode = '代码统计'
         else:
             setting = BlogSettings.objects.first()
