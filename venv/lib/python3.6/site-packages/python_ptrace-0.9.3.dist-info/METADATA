@@ -1,0 +1,46 @@
+Metadata-Version: 2.0
+Name: python-ptrace
+Version: 0.9.3
+Summary: python binding of ptrace
+Home-page: http://python-ptrace.readthedocs.io/
+Author: Victor Stinner
+Author-email: UNKNOWN
+License: GNU GPL v2
+Download-URL: http://python-ptrace.readthedocs.io/
+Description-Content-Type: UNKNOWN
+Platform: UNKNOWN
+Classifier: Intended Audience :: Developers
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Console
+Classifier: License :: OSI Approved :: GNU General Public License (GPL)
+Classifier: Operating System :: OS Independent
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+
+=============
+python-ptrace
+=============
+
+.. image:: https://img.shields.io/pypi/v/python-ptrace.svg
+   :alt: Latest release on the Python Cheeseshop (PyPI)
+   :target: https://pypi.python.org/pypi/python-ptrace
+
+.. image:: https://travis-ci.org/haypo/python-ptrace.svg?branch=master
+   :alt: Build status of python-ptrace on Travis CI
+   :target: https://travis-ci.org/haypo/python-ptrace
+
+python-ptrace is a debugger using ptrace (Linux, BSD and Darwin system call to
+trace processes) written in Python.
+
+* `python-ptrace documentation
+  <http://python-ptrace.readthedocs.io/>`_
+* `python-ptrace at GitHub
+  <https://github.com/haypo/python-ptrace>`_
+* `python-ptrace at the Python Cheeseshop (PyPI)
+  <https://pypi.python.org/pypi/python-ptrace>`_
+
+python-ptrace is an opensource project written in Python under GNU GPLv2
+license.
+
+

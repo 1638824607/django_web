@@ -29,6 +29,9 @@ urlpatterns = [
     # DjangoUeditor
     path('ueditor/', include('DjangoUeditor.urls')),
 
+    # 搜索
+    path('search/', include('haystack.urls'), name='search')
+
 ]
 
 if settings.DEBUG:
