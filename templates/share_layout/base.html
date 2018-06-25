@@ -58,8 +58,12 @@
 
 </body>
 <footer>
+    <script>
+        var baseurl = "{{ SITE_BASE_URL }}";
+    </script>
     <script type="text/javascript" src="{% static 'js/jquery-3.1.1.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/nprogress.js' %}"></script>
+    <script src="https://cdn.bootcss.com/layer/3.1.0/layer.js"></script>
     <script src="{% static 'js/blog/blog.js' %}" type="application/javascript"></script>
 {#    <script src="{% static 'blog/js/navigation.js' %}" type="application/javascript"></script>#}
 </footer>

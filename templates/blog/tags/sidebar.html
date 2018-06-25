@@ -49,8 +49,6 @@
 
     {% if sidebar_comments and  open_site_comment %}
         <aside id="ds-recent-comments-4" class="widget ds-widget-recent-comments"><h3 class="widget-title">近期评论</h3>
-            {% comment %}<ul class="ds-recent-comments" data-num-items="5" data-show-avatars="1" data-show-time="1"
-            data-show-title="1" data-show-admin="1" data-avatar-size="30" data-excerpt-length="70"></ul>{% endcomment %}
             <ul id="recentcomments">
                 {% for c in sidebar_comments %}
                     <li class="recentcomments">
@@ -130,7 +128,7 @@
                 <li><a href="{% url "blog:sign_in" %}" rel="nofollow">登录</a>
             {% endif %}
             {% if user.is_superuser %}
-                <li><a href="{% url "blog:sign_in" %}" target="_blank">刷新缓存</a></li>
+                <li><a href="javascript:void(0)" onclick="refrech()">刷新缓存</a></li>
             {% endif %}
         </ul>
     </aside>

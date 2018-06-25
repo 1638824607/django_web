@@ -70,3 +70,13 @@ $(document).on('webkitAnimationEnd', function() {
 		rocket.removeClass('move');
 	}, 400);
 });
+
+/***刷新缓存*/
+function refrech(){
+	$.get(
+		baseurl + 'refresh',
+		function(data){
+			layer.msg(data);
+		}
+	);
+}

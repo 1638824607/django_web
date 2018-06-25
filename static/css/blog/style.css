@@ -147,17 +147,25 @@ img {
 -------------------------------------------------------------- */
 
 /* Small headers */
-.archive-title,
 .page-title,
 .widget-title,
 .entry-content th,
 .comment-content th {
     font-size: 11px;
-    font-size: 0.785714286rem;
+    font-size: 0.985714286rem;
     line-height: 2.181818182;
     font-weight: bold;
     text-transform: uppercase;
     color: #636363;
+}
+
+.archive-title{
+    font-size: 13px;
+    font-size: 0.985714286rem;
+    line-height: 2.181818182;
+    font-weight: bold;
+    color: #636363;
+    margin-top: -1.785714rem;
 }
 
 /* Shared Post Format styling */

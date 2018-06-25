@@ -68,11 +68,28 @@ class Category(BaseModel):
         verbose_name = "分类"
         verbose_name_plural = verbose_name
 
-    # def get_absolute_url(self):
-        # return reverse('blog:article_detail')
+    def get_absolute_url(self):
+        return reverse('blog:category_detail', args=(self.pk,))
 
     def __str__(self):
         return self.name
+
+    # 获得当前分类目录所有子集
+    def get_sub_categorys(self):
+        categorys = []
+        all_categorys = Category.objects.all()
+
+        def parse(category):
+            if category not in categorys:
+                categorys.append(category)
+            childs = all_categorys.filter(parent_category=category)
+            for child in childs:
+                if category not in categorys:
+                    categorys.append(child)
+                parse(child)
+
+        parse(self)
+        return categorys
 
 
 # 文章标签

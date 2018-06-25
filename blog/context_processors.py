@@ -34,16 +34,16 @@ def seo_processor(request):
         site_base_url = 'http://127.0.0.1:8000/'
 
         if not BlogSettings.objects.count():
-            sitename = 'shenblog'
-            site_description = '基于Django的博客系统'
+            sitename = '忘境之湖'
+            site_description = '岁月静好，时光如初'
             site_seo_description = '基于Django的博客系统'
             site_seo_keywords = 'Django,Python'
             article_sub_length = 300
             sidebar_article_count = 10
             sidebar_comment_count = 5
             open_site_comment = True
-            beiancode = '陕ICP备18005585号'
-            gongan_beiancode = '陕ICP备18005585号'
+            beiancode = '京ICP备16037842号'
+            gongan_beiancode = '京ICP备16037842号'
             analyticscode = '代码统计'
         else:
             setting = BlogSettings.objects.first()

@@ -205,3 +205,5 @@ CACHES = {
         'TIMEOUT': 60 * 60 * 10
     }
 }
+
+PAGINATE_BY = 6
