@@ -13,12 +13,10 @@
 @time: 2017/1/7 上午12:44
 """
 from haystack import indexes
-from django.conf import settings
 from blog.models import Article, Category, Tag
 
 
 class ArticleIndex(indexes.SearchIndex, indexes.Indexable):
-    # title = indexes.CharField(document=True, use_template=True)
     text = indexes.CharField(document=True, use_template=True)
 
     def get_model(self):
