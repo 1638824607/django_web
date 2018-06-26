@@ -84,7 +84,6 @@ class ArticleDetailView(DetailView):
     def get_object(self, queryset=None):
         obj = super(ArticleDetailView, self).get_object()
         obj.viewed()
-        print(111)
         self.object = obj
         return obj
 
@@ -154,7 +153,6 @@ class CategoryDetailView(ArticleListView):
 # 标签详情
 class TagDetailView(ArticleListView):
     page_type = '分类标签归档'
-
     def get_queryset_data(self):
         tag_id = self.kwargs['tag_id']
         tag = get_object_or_404(Tag, id=tag_id)

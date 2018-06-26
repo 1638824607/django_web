@@ -3,14 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="61c82b85-53ef-45c7-8a3c-166a595a6ed4" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blog/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shenblog/whoosh_index/MAIN_1g9hah9i4737hnz3.seg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shenblog/whoosh_index/MAIN_91g05qdc8hjkh37g.seg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shenblog/whoosh_index/_MAIN_2.toc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/blog/article_detail.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/share_layout/nav.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/share_layout/nav.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shenblog/whoosh_index/MAIN_ftkcshzzvgm2o0es.seg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shenblog/whoosh_index/MAIN_pewk5lwrfop4pkfj.seg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shenblog/whoosh_index/_MAIN_402.toc" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -41,8 +37,8 @@
       <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/blog/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
-              <caret line="26" column="56" selection-start-line="26" selection-start-column="56" selection-end-line="26" selection-end-column="56" />
+            <state relative-caret-position="189">
+              <caret line="23" column="41" lean-forward="true" selection-start-line="23" selection-start-column="41" selection-end-line="23" selection-end-column="41" />
               <folding>
                 <element signature="e#231#259#0" expanded="true" />
               </folding>
@@ -65,8 +61,8 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/blog/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-437">
-              <caret line="72" column="37" selection-start-line="72" selection-start-column="37" selection-end-line="72" selection-end-column="37" />
+            <state relative-caret-position="276">
+              <caret line="58" column="43" selection-start-line="58" selection-start-column="43" selection-end-line="58" selection-end-column="43" />
               <folding>
                 <element signature="e#24#63#0" expanded="true" />
               </folding>
@@ -74,14 +70,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/blog/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="89" lean-forward="true" selection-start-line="89" selection-end-line="89" />
+            <state relative-caret-position="930">
+              <caret line="77" column="36" lean-forward="true" selection-start-line="77" selection-start-column="36" selection-end-line="77" selection-end-column="36" />
               <folding>
                 <element signature="e#24#63#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="base.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/share_layout/base.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="514">
+              <caret line="23" column="42" selection-start-line="23" selection-start-column="42" selection-end-line="23" selection-end-column="42" />
             </state>
           </provider>
         </entry>
@@ -89,8 +94,8 @@
       <file leaf-file-name="article_detail.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/blog/article_detail.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="296">
-              <caret line="23" column="25" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
+            <state relative-caret-position="267">
+              <caret line="22" column="35" selection-start-line="22" selection-start-column="35" selection-end-line="22" selection-end-column="35" />
             </state>
           </provider>
         </entry>
@@ -138,9 +143,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>article_id</find>
-      <find>requests</find>
-      <find>sidebar_article_count</find>
       <find>show_google_adsense</find>
       <find>accoun</find>
       <find>extra_sidebars</find>
@@ -154,7 +156,6 @@
       <find>article_list</find>
       <find>site_base_url</find>
       <find>inject.preload</find>
-      <find>document.documentElement.appendChild(script)</find>
       <find>blog:</find>
       <find>blob:</find>
       <find>is_paginated</find>
@@ -167,11 +168,15 @@
       <find>ArticleDetailView</find>
       <find>comment_list</find>
       <find>articleid</find>
+      <find>get_object</find>
+      <find>article_details</find>
+      <find>article_de</find>
       <find>article_detail</find>
+      <find>document.documentElement.appendChild(script)</find>
     </findStrings>
     <dirStrings>
-      <dir>$PROJECT_DIR$/blog</dir>
       <dir>$PROJECT_DIR$</dir>
+      <dir>$PROJECT_DIR$/blog</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -194,7 +199,6 @@
         <option value="$PROJECT_DIR$/templates/blog/tags/article_info.html" />
         <option value="$PROJECT_DIR$/blog/context_processors.py" />
         <option value="$PROJECT_DIR$/static/js/blog/blog.js" />
-        <option value="$PROJECT_DIR$/templates/share_layout/base.html" />
         <option value="$PROJECT_DIR$/templates/share_layout/footer.html" />
         <option value="$PROJECT_DIR$/static/css/blog/style.css" />
         <option value="$PROJECT_DIR$/venv/lib/python3.6/site-packages/haystack/utils.py" />
@@ -205,12 +209,13 @@
         <option value="$PROJECT_DIR$/templates/blog/article_list.html" />
         <option value="$PROJECT_DIR$/templates/share_layout/nav.html" />
         <option value="$PROJECT_DIR$/blog/forms.py" />
-        <option value="$PROJECT_DIR$/blog/urls.py" />
-        <option value="$PROJECT_DIR$/blog/models.py" />
         <option value="$PROJECT_DIR$/templates/blog/tags/sidebar.html" />
         <option value="$PROJECT_DIR$/templates/blog/article_detail.html" />
         <option value="$PROJECT_DIR$/blog/templatetags/blog_tags.py" />
+        <option value="$PROJECT_DIR$/blog/models.py" />
+        <option value="$PROJECT_DIR$/blog/urls.py" />
         <option value="$PROJECT_DIR$/blog/views.py" />
+        <option value="$PROJECT_DIR$/templates/share_layout/base.html" />
       </list>
     </option>
   </component>
@@ -419,18 +424,27 @@
     </task>
     <servers />
   </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32935324" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.18208955" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.18208955" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32935324" />
       <window_info anchor="bottom" id="Python Console" order="7" weight="0.32935324" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.1800995" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1687966" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1687966" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" weight="0.32960597" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -569,6 +583,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1260">
           <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+          <folding>
+            <element signature="e#24#63#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -604,13 +621,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
           <caret line="15" column="42" lean-forward="true" selection-end-line="30" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/share_layout/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1979">
-          <caret line="69" column="7" lean-forward="true" selection-start-line="69" selection-start-column="7" selection-end-line="69" selection-end-column="7" />
         </state>
       </provider>
     </entry>
@@ -774,27 +784,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/blog/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-437">
-          <caret line="72" column="37" selection-start-line="72" selection-start-column="37" selection-end-line="72" selection-end-column="37" />
-          <folding>
-            <element signature="e#24#63#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/blog/tags/sidebar.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="907">
           <caret line="112" column="48" selection-start-line="112" selection-start-column="48" selection-end-line="112" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/blog/article_detail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="23" column="25" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
         </state>
       </provider>
     </entry>
@@ -815,10 +808,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/blog/urls.py">
+    <entry file="file://$PROJECT_DIR$/templates/blog/article_detail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="267">
+          <caret line="22" column="35" selection-start-line="22" selection-start-column="35" selection-end-line="22" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/blog/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="276">
-          <caret line="26" column="56" selection-start-line="26" selection-start-column="56" selection-end-line="26" selection-end-column="56" />
+          <caret line="58" column="43" selection-start-line="58" selection-start-column="43" selection-end-line="58" selection-end-column="43" />
+          <folding>
+            <element signature="e#24#63#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/blog/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="23" column="41" lean-forward="true" selection-start-line="23" selection-start-column="41" selection-end-line="23" selection-end-column="41" />
           <folding>
             <element signature="e#231#259#0" expanded="true" />
           </folding>
@@ -827,11 +837,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/blog/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="89" lean-forward="true" selection-start-line="89" selection-end-line="89" />
+        <state relative-caret-position="930">
+          <caret line="77" column="36" lean-forward="true" selection-start-line="77" selection-start-column="36" selection-end-line="77" selection-end-column="36" />
           <folding>
             <element signature="e#24#63#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/share_layout/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="514">
+          <caret line="23" column="42" selection-start-line="23" selection-start-column="42" selection-end-line="23" selection-end-column="42" />
         </state>
       </provider>
     </entry>
