@@ -34,6 +34,9 @@ urlpatterns = [
     path('tag_detail/<int:tag_id>', blog.TagDetailView.as_view(), name='tag_detail'),
     path('tag_detail/<int:tag_id>/<int:page>/', blog.TagDetailView.as_view(), name='tag_detail_page'),
 
+    # 文章归档
+    path('archives.html', blog.ArchivesView.as_view(), name='archives'),
+
     # 登陆
     path('sign_in/', blog.SignInView.as_view(), name='sign_in'),
 

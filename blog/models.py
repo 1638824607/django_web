@@ -6,6 +6,7 @@ from django.utils.timezone import now
 from django.urls import reverse
 from DjangoUeditor.models import UEditorField
 from django.contrib.auth import get_user_model
+from django.core.cache import cache
 
 
 class BaseModel(models.Model):
@@ -56,6 +57,30 @@ class Article(BaseModel):
 
     def get_absolute_url(self):
         return reverse('blog:article_detail', args=(self.pk,))
+
+    # 增加阅读量
+    def viewed(self):
+        self.views += 1
+        self.save(update_fields=['views'])
+
+    # 评论列表
+    def comment_list(self):
+        cache_key = 'article_comments_{id}'.format(id=self.id)
+        value = cache.get(cache_key)
+        if value:
+            return value
+        else:
+            comments = self.comment_set.filter(is_enable=True)
+            cache.set(cache_key, comments)
+            return comments
+
+    def next_article(self):
+        # 下一篇
+        return Article.objects.filter(id__gt=self.id, status='p').order_by('id').first()
+
+    def prev_article(self):
+        # 前一篇
+        return Article.objects.filter(id__lt=self.id, status='p').first()
 
 
 # 文章分类表

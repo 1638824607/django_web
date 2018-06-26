@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404
 from django.views.generic.detail import DetailView
 from django.core.cache import cache
 from django.http import HttpResponse
+from django import forms
 from blog.models import Article, Category, Tag
 import logging
 from django.conf import settings
@@ -74,16 +75,42 @@ class ArticleListView(BlogListView):
 
 
 # 详情页面
-class ArticleDetailView(BlogListView):
+class ArticleDetailView(DetailView):
     template_name = 'blog/article_detail.html'
+    model = Article
+    pk_url_kwarg = 'article_id'
+    context_object_name = "article"
 
-    def get_queryset_data(self):
-        article_list = 'shenruxiang'
-        return article_list
+    def get_object(self, queryset=None):
+        obj = super(ArticleDetailView, self).get_object()
+        obj.viewed()
+        print(111)
+        self.object = obj
+        return obj
 
-    def get_queryset_cache_key(self):
-        cache_key = 'index_{page}'.format(page=1)
-        return cache_key
+    def get_context_data(self, **kwargs):
+        from blog.forms import CommentForm
+        comment_form = CommentForm()
+        user = self.request.user
+
+        if user.is_authenticated and not user.is_anonymous and user.email and user.username:
+            comment_form.fields.update({
+                'email': forms.CharField(widget=forms.HiddenInput()),
+                'name': forms.CharField(widget=forms.HiddenInput()),
+            })
+            comment_form.fields["email"].initial = user.email
+            comment_form.fields["name"].initial = user.username
+
+        article_comments = self.object.comment_list()
+
+        kwargs['form'] = comment_form
+        kwargs['article_comments'] = article_comments
+        kwargs['comment_count'] = len(article_comments) if article_comments else 0
+
+        kwargs['next_article'] = self.object.next_article
+        kwargs['prev_article'] = self.object.prev_article
+
+        return super(ArticleDetailView, self).get_context_data(**kwargs)
 
 
 # 分类页面
@@ -148,6 +175,21 @@ class TagDetailView(ArticleListView):
         kwargs['page_type'] = TagDetailView.page_type
         kwargs['tag_name'] = tag_name
         return super(TagDetailView, self).get_context_data(**kwargs)
+
+
+# 文章归档
+class ArchivesView(ArticleListView):
+    page_type = '文章归档'
+    paginate_by = None
+    page_kwarg = None
+    template_name = 'blog/article_archives.html'
+
+    def get_queryset_data(self):
+        return Article.objects.filter(status='p').all()
+
+    def get_queryset_cache_key(self):
+        cache_key = 'archives'
+        return cache_key
 
 
 # 登陆
