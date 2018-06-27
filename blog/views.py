@@ -6,9 +6,12 @@ from django.shortcuts import get_object_or_404
 from django.views.generic.detail import DetailView
 from django.core.cache import cache
 from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django import forms
 from blog.models import Article, Category, Tag
+from django.views.generic.edit import FormView
 import logging
+from blog.forms import CommentForm
 from django.conf import settings
 
 logger = logging.getLogger('shenblog')
@@ -92,13 +95,8 @@ class ArticleDetailView(DetailView):
         comment_form = CommentForm()
         user = self.request.user
 
-        if user.is_authenticated and not user.is_anonymous and user.email and user.username:
-            comment_form.fields.update({
-                'email': forms.CharField(widget=forms.HiddenInput()),
-                'name': forms.CharField(widget=forms.HiddenInput()),
-            })
-            comment_form.fields["email"].initial = user.email
-            comment_form.fields["name"].initial = user.username
+        if user.is_authenticated:
+            comment_form.fields["article_id"].initial = self.kwargs.get('article_id')
 
         article_comments = self.object.comment_list()
 
@@ -188,6 +186,87 @@ class ArchivesView(ArticleListView):
     def get_queryset_cache_key(self):
         cache_key = 'archives'
         return cache_key
+
+
+#post comment
+class CommentPostView(FormView):
+    form_class = CommentForm
+    template_name = 'blog/article_detail.html'
+
+    def post(self, request, *args, **kwargs):
+        form_data = request.POST
+        form_data['author_id'] = self.request.user.id
+
+
+
+        form = CommentForm(request.POST)
+
+        if form.is_valid():
+            form.fields["author_id"].initial = self.request.user.id
+
+            form.fields["author_id"].initial = self.request.user.id
+            parent_comment_id = form.cleaned_data['parent_comment_id']
+
+            if parent_comment_id:
+                form.fields["parent_comment_id"].initial = parent_comment_id
+
+            comment = form.save(commit=False)
+            comment.save()
+
+        article_id = request.POST['article_id']
+        article = Article.objects.get(pk=article_id)
+
+        url = article.get_absolute_url()
+        return HttpResponseRedirect(url + "#comments")
+
+    # def form_invalid(self, form):
+    #     article_id = self.kwargs['article_id']
+    #     article = Article.objects.get(pk=article_id)
+    #     u = self.request.user
+    #
+    #     if self.request.user.is_authenticated:
+    #         form.fields.update({
+    #             'email': forms.CharField(widget=forms.HiddenInput()),
+    #             'name': forms.CharField(widget=forms.HiddenInput()),
+    #         })
+    #         user = self.request.user
+    #         form.fields["email"].initial = user.email
+    #         form.fields["name"].initial = user.username
+    #
+    #     return self.render_to_response({
+    #         'form': form,
+    #         'article': article
+    #     })
+    #
+    # def form_valid(self, form):
+    #     """提交的数据验证合法后的逻辑"""
+    #     user = self.request.user
+    #
+    #     article_id = self.kwargs['article_id']
+    #     article = Article.objects.get(pk=article_id)
+    #     if not self.request.user.is_authenticated:
+    #         email = form.cleaned_data['email']
+    #         username = form.cleaned_data['name']
+    #
+    #         user = get_user_model().objects.get_or_create(username=username, email=email)[0]
+    #         # auth.login(self.request, user)
+    #     comment = form.save(False)
+    #     comment.article = article
+    #
+    #     comment.author = user
+    #
+    #     if form.cleaned_data['parent_comment_id']:
+    #         parent_comment = Comment.objects.get(pk=form.cleaned_data['parent_comment_id'])
+    #         comment.parent_comment = parent_comment
+    #
+    #     comment.save(True)
+    #
+    #     from DjangoBlog.blog_signals import comment_save_signal
+    #
+    #     port = self.request.get_port()
+    #     username = self.request.user.username if self.request.user else ''
+    #     comment_save_signal.send(sender=self.__class__, comment_id=comment.id, username=username, serverport=port)
+    #     return HttpResponseRedirect("%s#div-comment-%d" % (article.get_absolute_url(), comment.pk))
 
 
 # 登陆

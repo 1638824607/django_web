@@ -206,3 +206,42 @@ def load_pagination_info(page_obj, page_type, tag_name):
         'next_url': next_url,
         'page_obj': page_obj
     }
+
+
+@register.simple_tag
+def query(qs, **kwargs):
+    """ template tag which allows queryset filtering. Usage:
+          {% query books author=author as mybooks %}
+          {% for book in mybooks %}
+            ...
+          {% endfor %}
+    """
+    return qs.filter(**kwargs)
+
+
+# 评论
+@register.inclusion_tag('blog/tags/comment_item.html')
+def show_comment_item(comment, ischild):
+    depth = 1 if ischild else 2
+    return {
+        'comment_item': comment,
+        'depth': depth
+    }
+
+
+# 获得当前评论子评论的列表
+@register.simple_tag
+def parse_commenttree(commentlist, comment):
+    """
+        用法: {% parse_commenttree article_comments comment as childcomments %}
+    """
+    datas = []
+
+    def parse(c):
+        childs = commentlist.filter(parent_comment=c, is_enable=True)
+        for child in childs:
+            datas.append(child)
+            parse(child)
+
+    parse(comment)
+    return datas

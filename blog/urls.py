@@ -37,6 +37,9 @@ urlpatterns = [
     # 文章归档
     path('archives.html', blog.ArchivesView.as_view(), name='archives'),
 
+    # post评论
+    path('article/postcomment', blog.CommentPostView.as_view(), name='postcomment'),
+
     # 登陆
     path('sign_in/', blog.SignInView.as_view(), name='sign_in'),
 
