@@ -40,8 +40,11 @@ urlpatterns = [
     # post评论
     path('article/postcomment', blog.CommentPostView.as_view(), name='postcomment'),
 
+    # 登出
+    path('logout/', blog.LogoutView.as_view(), name='logout'),
+
     # 登陆
-    path('sign_in/', blog.SignInView.as_view(), name='sign_in'),
+    path('login/', blog.LoginView.as_view(), name='login'),
 
     # 注册
 

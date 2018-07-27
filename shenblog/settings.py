@@ -89,6 +89,7 @@ DATABASES = {
         'PORT': '3306',
         'USER': 'root',
         'PASSWORD': 'root',
+        'OPTIONS': {'charset': 'utf8mb4'},
     }
 }
 
@@ -209,6 +210,7 @@ CACHES = {
 
 PAGINATE_BY = 6
 
+AUTH_USER_MODEL = 'blog.User'
 
 HAYSTACK_CONNECTIONS = {
     'default': {

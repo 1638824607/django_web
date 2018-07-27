@@ -3,7 +3,8 @@ from __future__ import unicode_literals
 
 from django.contrib import admin
 from django.utils.timezone import now
-from .models import Article, Category, Tag, Links, SideBar, BlogSettings, Comment
+from django.contrib import auth
+from .models import Article, Category, Tag, Links, SideBar, BlogSettings, Comment, User
 
 
 class ArticleAdmin(admin.ModelAdmin):
@@ -60,6 +61,11 @@ class ArticleAdmin(admin.ModelAdmin):
     article_tags.short_description = '标签'
 
 
+class UserAdmin(admin.ModelAdmin):
+    list_display = ('id', 'username', 'email', 'last_login', 'date_joined')
+    list_display_links = ('id', 'username')
+
+
 # 注册模型为后台展示和数据增删改查
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(Category)
@@ -68,3 +74,4 @@ admin.site.register(Links)
 admin.site.register(SideBar)
 admin.site.register(BlogSettings)
 admin.site.register(Comment)
+admin.site.register(User, UserAdmin)

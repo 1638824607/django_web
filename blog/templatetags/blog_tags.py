@@ -245,3 +245,14 @@ def parse_commenttree(commentlist, comment):
 
     parse(comment)
     return datas
+
+
+# 获得gravatar头像
+@register.filter
+def gravatar_url(avatar):
+    if not avatar:
+        avatar = 'upload/mugshots/default_user_avatar.jpg'
+
+    default = "http://127.0.0.1:8000/media/%s" % (avatar)
+
+    return default

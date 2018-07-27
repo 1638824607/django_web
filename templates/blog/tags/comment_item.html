@@ -3,8 +3,8 @@
     <div id="div-comment-{{ comment_item.pk }}" class="comment-body">
         <div class="comment-author vcard">
             <img alt=""
-                 src="{{ comment_item.author.email|gravatar_url:150 }}"
-                 srcset="{{ comment_item.author.email|gravatar_url:150 }}"
+                 src="{{ comment_item.author.avatar|gravatar_url}}"
+                 srcset="{{ comment_item.author.avatar|gravatar_url}}"
                  class="avatar avatar-96 photo" height="96" width="96">
             <cite class="fn">
                 <a rel="nofollow"
@@ -24,7 +24,7 @@
             {{ comment_item.created_time }}
         </div>
 
-        <p>{{ comment_item.body |custom_markdown }}</p>
+        <p>{{ comment_item.body |markdown_detail }}</p>
 
         <div class="reply"><a rel="nofollow" class="comment-reply-link"
                               href="javascript:void(0)"

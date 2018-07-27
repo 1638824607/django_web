@@ -5,14 +5,20 @@ from django.views.generic.list import ListView
 from django.shortcuts import get_object_or_404
 from django.views.generic.detail import DetailView
 from django.core.cache import cache
+from django.conf import settings
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
-from django import forms
-from blog.models import Article, Category, Tag
+from django.contrib import auth
+from blog.models import Article, Category, Tag, Comment
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.views.generic.edit import FormView
+from django.views.generic import FormView, RedirectView
 import logging
 from blog.forms import CommentForm
-from django.conf import settings
+
+from blog.forms import LoginForm
+from django.utils.http import is_safe_url
 
 logger = logging.getLogger('shenblog')
 
@@ -193,92 +199,93 @@ class CommentPostView(FormView):
     form_class = CommentForm
     template_name = 'blog/article_detail.html'
 
+    def get(self, request, *args, **kwargs):
+        return HttpResponseRedirect("/")
+
     def post(self, request, *args, **kwargs):
-        form_data = request.POST
-        form_data['author_id'] = self.request.user.id
+        article_object = []
 
-
+        article_id = self.request.POST['article_id']
+        comment_id = self.request.POST['parent_comment_id']
+        user = self.request.user
 
         form = CommentForm(request.POST)
 
         if form.is_valid():
-            form.fields["author_id"].initial = self.request.user.id
-
-            form.fields["author_id"].initial = self.request.user.id
-            parent_comment_id = form.cleaned_data['parent_comment_id']
-
-            if parent_comment_id:
-                form.fields["parent_comment_id"].initial = parent_comment_id
-
             comment = form.save(commit=False)
+
+            article_object = Article.objects.get(pk=article_id)
+            comment.article = article_object
+
+            if comment_id:
+                comment_object = Comment.objects.get(pk=comment_id)
+                comment.parent_comment = comment_object
+
+            comment.author = user
+
             comment.save()
 
-        article_id = request.POST['article_id']
-        article = Article.objects.get(pk=article_id)
-
-        url = article.get_absolute_url()
+        if article_object:
+            url = article_object.get_absolute_url()
+        else:
+            url = '/'
         return HttpResponseRedirect(url + "#comments")
 
-    # def form_invalid(self, form):
-    #     article_id = self.kwargs['article_id']
-    #     article = Article.objects.get(pk=article_id)
-    #     u = self.request.user
-    #
-    #     if self.request.user.is_authenticated:
-    #         form.fields.update({
-    #             'email': forms.CharField(widget=forms.HiddenInput()),
-    #             'name': forms.CharField(widget=forms.HiddenInput()),
-    #         })
-    #         user = self.request.user
-    #         form.fields["email"].initial = user.email
-    #         form.fields["name"].initial = user.username
-    #
-    #     return self.render_to_response({
-    #         'form': form,
-    #         'article': article
-    #     })
-    #
-    # def form_valid(self, form):
-    #     """提交的数据验证合法后的逻辑"""
-    #     user = self.request.user
-    #
-    #     article_id = self.kwargs['article_id']
-    #     article = Article.objects.get(pk=article_id)
-    #     if not self.request.user.is_authenticated:
-    #         email = form.cleaned_data['email']
-    #         username = form.cleaned_data['name']
-    #
-    #         user = get_user_model().objects.get_or_create(username=username, email=email)[0]
-    #         # auth.login(self.request, user)
-    #     comment = form.save(False)
-    #     comment.article = article
-    #
-    #     comment.author = user
-    #
-    #     if form.cleaned_data['parent_comment_id']:
-    #         parent_comment = Comment.objects.get(pk=form.cleaned_data['parent_comment_id'])
-    #         comment.parent_comment = parent_comment
-    #
-    #     comment.save(True)
-    #
-    #     from DjangoBlog.blog_signals import comment_save_signal
-    #
-    #     port = self.request.get_port()
-    #     username = self.request.user.username if self.request.user else ''
-    #     comment_save_signal.send(sender=self.__class__, comment_id=comment.id, username=username, serverport=port)
-    #     return HttpResponseRedirect("%s#div-comment-%d" % (article.get_absolute_url(), comment.pk))
+
+# 登出
+class LogoutView(RedirectView):
+    def get(self, request, *args, **kwargs):
+        cache.clear()
+        auth.logout(request)
+        return HttpResponseRedirect("/")
 
 
 # 登陆
-class SignInView(ListView):
-    template_name = 'blog/article_detail.html'
-    context_object_name = 'tag_list'
+class LoginView(FormView):
+    form_class = LoginForm
+    template_name = 'blog/login.html'
+    success_url = '/'
+    redirect_field_name = REDIRECT_FIELD_NAME
 
-    def get_queryset(self):
-        tags_list = []
-        tags = Tag.objects.all()
-        for t in tags:
-            t.article_set.count()
+    # @method_decorator(sensitive_post_parameters('password'))
+    # @method_decorator(csrf_protect)
+    # @method_decorator(never_cache)
+    def dispatch(self, request, *args, **kwargs):
+
+        return super(LoginView, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        redirect_to = self.request.GET.get(self.redirect_field_name)
+        if redirect_to is None:
+            redirect_to = '/'
+        kwargs['redirect_to'] = redirect_to
+
+        return super(LoginView, self).get_context_data(**kwargs)
+
+    def form_valid(self, form):
+        form = AuthenticationForm(data=self.request.POST, request=self.request)
+
+        if form.is_valid():
+            if cache and cache is not None:
+                cache.clear()
+            print(self.redirect_field_name)
+            redirect_to = self.request.GET.get(self.redirect_field_name)
+            auth.login(self.request, form.get_user())
+            return super(LoginView, self).form_valid(form)
+            # return HttpResponseRedirect('/')
+        else:
+            return self.render_to_response({
+                'form': form
+            })
+
+    def get_success_url(self):
+        print(self.redirect_field_name)
+        redirect_to = self.request.POST.get(self.redirect_field_name)
+        if not is_safe_url(url=redirect_to, host=self.request.get_host()):
+            redirect_to = self.success_url
+        return redirect_to
+
+
 
 
 # 刷新缓存
