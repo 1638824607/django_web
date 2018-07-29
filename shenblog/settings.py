@@ -213,7 +213,8 @@ PAGINATE_BY = 6
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'blog.whoosh_cn_backend.WhooshEngine',
-        'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
+        # 'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
     },
 }
 # 自动更新搜索索引
