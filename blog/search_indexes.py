@@ -24,16 +24,15 @@ class ArticleIndex(indexes.SearchIndex, indexes.Indexable):
 
     def index_queryset(self, using=None):
         article_list = self.get_model().objects.filter(status='p')
+        print(article_list)
         return article_list
 
 
-"""
 class CategoryIndex(indexes.SearchIndex, indexes.Indexable):
-    name = indexes.CharField(document=True, use_template=True)
+    text = indexes.CharField(document=True, use_template=True)
 
     def get_model(self):
-        return Article
+        return Category
 
     def index_queryset(self, using=None):
-        return self.get_model().objects.filter(status='p')
-"""
+        return self.get_model().objects.all()
