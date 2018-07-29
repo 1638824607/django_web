@@ -5,14 +5,18 @@ from django.views.generic.list import ListView
 from django.shortcuts import get_object_or_404
 from django.views.generic.detail import DetailView
 from django.core.cache import cache
-from django.http import HttpResponse
-from django.http import HttpResponseRedirect
-from django import forms
+from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib import auth
 from blog.models import Article, Category, Tag, Comment
 import logging
+from django.urls import reverse
+from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.conf import settings
-from blog.forms import CommentForm
+from blog.forms import CommentForm,LoginForm,RegisterForm
 from django.views.generic import FormView, RedirectView
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.utils.http import is_safe_url
+
 
 logger = logging.getLogger('shenblog')
 
@@ -226,18 +230,6 @@ class CommentPostView(FormView):
         return HttpResponseRedirect(url + "#comments")
 
 
-# 登陆
-class SignInView(ListView):
-    template_name = 'blog/article_detail.html'
-    context_object_name = 'tag_list'
-
-    def get_queryset(self):
-        tags_list = []
-        tags = Tag.objects.all()
-        for t in tags:
-            t.article_set.count()
-
-
 # 刷新缓存
 def refresh_memcache(request):
     try:
@@ -250,3 +242,69 @@ def refresh_memcache(request):
             return HttpResponseForbidden()
     except Exception as e:
         return HttpResponse(e)
+
+
+# 登出
+class LogoutView(RedirectView):
+    def get(self, request, *args, **kwargs):
+        cache.clear()
+        auth.logout(request)
+        return HttpResponseRedirect("/")
+
+
+# 注册
+class RegisterView(FormView):
+    form_class = RegisterForm
+    template_name = 'blog/registration_form.html'
+
+    def form_valid(self, form):
+        user = form.save(False)
+        user.save(True)
+        url = reverse('blog:login')
+        return HttpResponseRedirect(url)
+
+
+# 登陆
+class LoginView(FormView):
+    form_class = LoginForm
+    template_name = 'blog/login.html'
+    success_url = '/'
+    redirect_field_name = REDIRECT_FIELD_NAME
+
+    # @method_decorator(sensitive_post_parameters('password'))
+    # @method_decorator(csrf_protect)
+    # @method_decorator(never_cache)
+    def dispatch(self, request, *args, **kwargs):
+
+        return super(LoginView, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        redirect_to = self.request.GET.get(self.redirect_field_name)
+        if redirect_to is None:
+            redirect_to = '/'
+        kwargs['redirect_to'] = redirect_to
+
+        return super(LoginView, self).get_context_data(**kwargs)
+
+    def form_valid(self, form):
+        form = AuthenticationForm(data=self.request.POST, request=self.request)
+
+        if form.is_valid():
+            if cache and cache is not None:
+                cache.clear()
+            print(self.redirect_field_name)
+            redirect_to = self.request.GET.get(self.redirect_field_name)
+            auth.login(self.request, form.get_user())
+            return super(LoginView, self).form_valid(form)
+            # return HttpResponseRedirect('/')
+        else:
+            return self.render_to_response({
+                'form': form
+            })
+
+    def get_success_url(self):
+        print(self.redirect_field_name)
+        redirect_to = self.request.POST.get(self.redirect_field_name)
+        if not is_safe_url(url=redirect_to, host=self.request.get_host()):
+            redirect_to = self.success_url
+        return redirect_to
