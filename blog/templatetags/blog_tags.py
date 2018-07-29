@@ -256,4 +256,3 @@ def gravatar_url(avatar):
     default = "http://127.0.0.1:8000/media/%s" % (avatar)
 
     return default
-

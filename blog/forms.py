@@ -2,11 +2,16 @@
 # encoding: utf-8
 
 from .models import Comment
-from django import forms
 from django.forms import ModelForm
+
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.forms import widgets
 from django.contrib.auth import get_user_model
+
+from django import forms
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.forms import widgets
+
 
 
 class CommentForm(ModelForm):

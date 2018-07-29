@@ -131,7 +131,13 @@
                 <li><a href="{% url "blog:login" %}" rel="nofollow">登录</a>
             {% endif %}
             {% if user.is_superuser %}
+                <li><a href="{{ SITE_BASE_URL }}/admin/">管理站点</a></li>
                 <li><a href="javascript:void(0)" onclick="refrech()">刷新缓存</a></li>
+            {% endif %}
+            {% if user.is_authenticated %}
+                <li><a href="{% url "blog:logout" %}">登出</a></li>
+            {% else %}
+                <li><a href="{% url "blog:login" %}" rel="nofollow">登录</a>
             {% endif %}
         </ul>
     </aside>

@@ -89,6 +89,7 @@ DATABASES = {
         'PORT': '3306',
         'USER': 'root',
         'PASSWORD': 'root',
+        'OPTIONS': {'charset': 'utf8mb4'},
     }
 }
 
@@ -209,12 +210,12 @@ CACHES = {
 
 PAGINATE_BY = 6
 
+AUTH_USER_MODEL = 'blog.User'
 
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'blog.whoosh_cn_backend.WhooshEngine',
-        # 'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
-        'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
+        'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
     },
 }
 # 自动更新搜索索引

@@ -7,6 +7,7 @@ from django.urls import reverse
 from DjangoUeditor.models import UEditorField
 from django.contrib.auth import get_user_model
 from django.core.cache import cache
+from django.contrib.auth.models import AbstractUser
 
 
 class BaseModel(models.Model):
@@ -195,11 +196,12 @@ class BlogSettings(models.Model):
         return self.sitename
 
 
+# 评论
 class Comment(models.Model):
     body = models.TextField('正文', max_length=300)
     created_time = models.DateTimeField('创建时间', default=now)
     last_mod_time = models.DateTimeField('修改时间', default=now)
-    author = models.ForeignKey(get_user_model(), verbose_name='作者', on_delete=models.CASCADE)
+    author = models.ForeignKey('User', verbose_name='作者', on_delete=models.CASCADE)
     article = models.ForeignKey(Article, verbose_name='文章', on_delete=models.CASCADE)
     parent_comment = models.ForeignKey('self', verbose_name="上级评论", blank=True, null=True, on_delete=models.CASCADE)
     is_enable = models.BooleanField('是否显示', default=True, blank=False, null=False)
@@ -215,3 +217,19 @@ class Comment(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
+
+
+# 重写用户
+class User(AbstractUser):
+    avatar = models.ImageField('头像', upload_to='upload/mugshots', blank=True)
+
+    # def get_absolute_url(self):
+    #     return reverse('blog:author_detail', kwargs={'author_name': self.username})
+
+    def __str__(self):
+        return self.email
+
+    # def get_full_url(self):
+    #     site = Site.objects.get_current().domain
+    #     url = "https://{site}{path}".format(site=site, path=self.get_absolute_url())
+    #     return url
