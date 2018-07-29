@@ -6,10 +6,13 @@ from django.shortcuts import get_object_or_404
 from django.views.generic.detail import DetailView
 from django.core.cache import cache
 from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django import forms
-from blog.models import Article, Category, Tag
+from blog.models import Article, Category, Tag, Comment
 import logging
 from django.conf import settings
+from blog.forms import CommentForm
+from django.views.generic import FormView, RedirectView
 
 logger = logging.getLogger('shenblog')
 
@@ -92,13 +95,8 @@ class ArticleDetailView(DetailView):
         comment_form = CommentForm()
         user = self.request.user
 
-        if user.is_authenticated and not user.is_anonymous and user.email and user.username:
-            comment_form.fields.update({
-                'email': forms.CharField(widget=forms.HiddenInput()),
-                'name': forms.CharField(widget=forms.HiddenInput()),
-            })
-            comment_form.fields["email"].initial = user.email
-            comment_form.fields["name"].initial = user.username
+        if user.is_authenticated:
+            comment_form.fields["article_id"].initial = self.kwargs.get('article_id')
 
         article_comments = self.object.comment_list()
 
@@ -188,6 +186,44 @@ class ArchivesView(ArticleListView):
     def get_queryset_cache_key(self):
         cache_key = 'archives'
         return cache_key
+
+
+#post comment
+class CommentPostView(FormView):
+    form_class = CommentForm
+    template_name = 'blog/article_detail.html'
+
+    def get(self, request, *args, **kwargs):
+        return HttpResponseRedirect("/")
+
+    def post(self, request, *args, **kwargs):
+        article_object = []
+
+        article_id = self.request.POST['article_id']
+        comment_id = self.request.POST['parent_comment_id']
+        user = self.request.user
+
+        form = CommentForm(request.POST)
+
+        if form.is_valid():
+            comment = form.save(commit=False)
+
+            article_object = Article.objects.get(pk=article_id)
+            comment.article = article_object
+
+            if comment_id:
+                comment_object = Comment.objects.get(pk=comment_id)
+                comment.parent_comment = comment_object
+
+            comment.author = user
+
+            comment.save()
+
+        if article_object:
+            url = article_object.get_absolute_url()
+        else:
+            url = '/'
+        return HttpResponseRedirect(url + "#comments")
 
 
 # 登陆

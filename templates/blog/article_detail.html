@@ -47,13 +47,15 @@
 {#            {% if user.is_authenticated %}#}
 {#                {% include 'blog/tags/post_comment.html' %}#}
 {#            {% else %}#}
+                {% include 'blog/tags/comment_list.html' %}
+
+            {% if user.is_authenticated %}
+                {% include 'blog/tags/post_comment.html' %}
+            {% else %}
                 <div class="comments-area">
                     <h3 class="comment-meta">您还没有登录，请您<a href="?next={{ request.get_full_path }}">登录</a>后发表评论。</h3>
-
-{#                    {% load oauth_tags %}#}
-{#                    {% load_oauth_applications request %}#}
-
                 </div>
+            {% endif %}
 {#            {% endif %}#}
         {% endif %}
     </div><!-- #primary -->
